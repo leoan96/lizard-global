@@ -37,7 +37,11 @@ const PostDetails = (props) => {
             <h2 className="header">{post.title}</h2>
             <div className="card horizontal medium">
               <div className="card-image">
-                <img src={post.author.avatar} className="responsive-img" />
+                <img
+                  src={post.author.avatar}
+                  className="responsive-img"
+                  alt={post.title}
+                />
                 <span style={{ fontWeight: 'bold', fontSize: 20 }}>
                   {post.author.name}
                 </span>
