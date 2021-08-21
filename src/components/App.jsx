@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import Navbar from './Navbar';
+import PostDetails from './PostDetails';
+import Posts from './Posts';
 
 const App = () => {
   let [posts, setPosts] = useState([]);
@@ -12,7 +17,18 @@ const App = () => {
       });
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <Navbar />
+      <Switch>
+        <Route exact path={['/', 'posts']}>
+          <Posts posts={posts} />
+        </Route>
+        <Route exact path="/posts/:id" component={PostDetails} />
+        <Redirect to="/" />
+      </Switch>
+    </div>
+  );
 };
 
 export default App;
