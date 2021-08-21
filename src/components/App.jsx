@@ -6,14 +6,17 @@ import PostDetails from './PostDetails';
 import Posts from './Posts';
 
 const App = () => {
-  let [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch('/api/posts')
       .then((response) => response.json())
       .then((json) => {
         console.log(json.posts);
         setPosts(json.posts);
+        setLoading(false);
       });
   }, []);
 
@@ -22,7 +25,7 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route exact path={['/', 'posts']}>
-          <Posts posts={posts} />
+          <Posts posts={posts} loading={loading} />
         </Route>
         <Route exact path="/posts/:id" component={PostDetails} />
         <Redirect to="/" />
