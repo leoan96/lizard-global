@@ -8,6 +8,7 @@ import Posts from './Posts';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [filterByList, setFilterByList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -17,10 +18,27 @@ const App = () => {
     fetch('/api/posts')
       .then((response) => response.json())
       .then((json) => {
-        setPosts(json.posts);
+        const posts = json.posts;
+        const filtersSet = new Set();
+
+        posts.forEach((post) => getFilters(post.categories, filtersSet));
+
+        const filters = Array.from(filtersSet);
+
+        setFilterByList(filters);
+        setPosts(posts);
         setLoading(false);
       });
   }, []);
+
+  const getFilters = (categories, filters) => {
+    categories.forEach((category) => filters.add(category.name));
+  };
+
+  const handleOnFilterSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+  };
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -42,7 +60,10 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar
+        filterByList={filterByList}
+        onFilterSubmit={handleOnFilterSubmit}
+      />
       <Switch>
         <Route exact path={['/', 'posts']}>
           <Posts posts={currentPosts} loading={loading} />
