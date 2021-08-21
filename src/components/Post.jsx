@@ -1,12 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { formatDate } from '../shared/helper';
 
 const Post = ({ post }) => {
-  const formatDate = (string) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(string).toLocaleDateString([], options);
-  };
-
   return (
     <div>
       <li className="collection-item avatar">
@@ -15,7 +11,8 @@ const Post = ({ post }) => {
         <p>{post.author.name}</p>
         <p>{formatDate(post.publishDate)}</p>
         <Link to={`/posts/${post.id}`} className="secondary-content">
-          <i className="material-icons">View Details</i>
+          <i>View Details</i>
+          <i className="small material-icons">forum</i>
         </Link>
       </li>
     </div>

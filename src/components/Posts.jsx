@@ -1,8 +1,13 @@
 import React from 'react';
 
 import Post from './Post';
+import Spinner from './Spinner';
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, loading }) => {
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
       <div className="container">
