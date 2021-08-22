@@ -58,7 +58,6 @@ const App = () => {
     });
 
     setFilterBy(filters);
-    // setPosts(filter());
   };
 
   const filter = () => {
