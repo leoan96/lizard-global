@@ -9,11 +9,12 @@ import Posts from './Posts';
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [filterByList, setFilterByList] = useState([]);
+  const [filterBy, setFilterBy] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-  useEffect(() => {
+  const initializeMainPage = () => {
     setLoading(true);
     fetch('/api/posts')
       .then((response) => response.json())
@@ -29,17 +30,53 @@ const App = () => {
         setPosts(posts);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    initializeMainPage();
   }, []);
 
+  useEffect(() => {
+    setPosts(filter());
+  }, [filterBy]);
+
+  // Extracting unique filter values from data
   const getFilters = (categories, filters) => {
     categories.forEach((category) => filters.add(category.name));
   };
 
+  // Implement filter functionality
   const handleOnFilterSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const filters = [];
+
+    Array.from(e.target.elements).forEach((input) => {
+      if (input.type === 'checkbox' && input.checked) {
+        filters.push(input.value);
+      }
+    });
+
+    setFilterBy(filters);
+    // setPosts(filter());
   };
 
+  const filter = () => {
+    const categories = posts.filter((post) => {
+      for (const category of post.categories) {
+        if (filterBy.includes(category.name)) {
+          return true;
+        }
+      }
+      return false;
+    });
+
+    return categories;
+  };
+
+  const handleOnReset = () => initializeMainPage();
+
+  // Pagination
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -58,11 +95,13 @@ const App = () => {
     }
   };
 
+  console.log(filterBy);
   return (
     <div>
       <Navbar
         filterByList={filterByList}
-        onFilterSubmit={handleOnFilterSubmit}
+        handleOnFilterSubmit={handleOnFilterSubmit}
+        handleOnReset={handleOnReset}
       />
       <Switch>
         <Route exact path={['/', 'posts']}>

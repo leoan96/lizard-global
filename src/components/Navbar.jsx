@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Checkbox from './Checkbox';
 
-const Navbar = ({ filterByList, onFilterSubmit }) => {
+const Navbar = ({ filterByList, handleOnFilterSubmit, handleOnReset }) => {
   return (
     <React.Fragment>
       <nav>
@@ -11,14 +11,21 @@ const Navbar = ({ filterByList, onFilterSubmit }) => {
             Lizard Blog
           </Link>
         </div>
-        <form action="#">
+        <form onSubmit={handleOnFilterSubmit} id="filterForm">
           <label>
             <h4>Filter By:</h4>
           </label>
-
           <Checkbox filterByList={filterByList} />
           <p>
-            <input type="submit" value="Submit" onClick={onFilterSubmit} />
+            <button className="waves-effect waves-light btn" type="submit">
+              Filter
+            </button>
+            <button
+              onClick={handleOnReset}
+              className="waves-effect #d50000 red accent-4 btn"
+            >
+              Reset
+            </button>
           </p>
         </form>
       </nav>

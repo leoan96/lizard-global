@@ -12,7 +12,7 @@ const Posts = ({ posts, loading }) => {
     <div>
       <div className="container">
         <div className="row">
-          <div className="col s12">
+          <div className="col s12 ">
             <ul className="collection">
               {posts.map((post) => (
                 <Post key={post.id} post={post} />
