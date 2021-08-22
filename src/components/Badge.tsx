@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Badge = ({ name }) => {
+const Badge = ({ name }: { name: string }) => {
   return <span className="badge yellow">{name}</span>;
 };
 
