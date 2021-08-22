@@ -1,10 +1,14 @@
 import React from 'react';
 import Filter from './Filter';
 
-const Checkbox = ({ filterByList }) => {
+interface FilterList {
+  filterByList: string[];
+}
+
+const Checkbox = ({ filterByList }: FilterList) => {
   return (
     <React.Fragment>
-      {filterByList.map((filter) => (
+      {filterByList.map((filter: string) => (
         <Filter key={filter} filter={filter} />
       ))}
     </React.Fragment>

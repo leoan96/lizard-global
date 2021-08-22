@@ -1,5 +1,14 @@
 import React from 'react';
 
+interface Paginate {
+  currentPage: number;
+  postsPerPage: number;
+  totalPosts: number;
+  paginate: (number: number) => void;
+  paginateLeft: () => void;
+  paginateRight: (number: number) => void;
+}
+
 const Pagination = ({
   currentPage,
   postsPerPage,
@@ -7,7 +16,7 @@ const Pagination = ({
   paginate,
   paginateLeft,
   paginateRight,
-}) => {
+}: Paginate) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
