@@ -2,7 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../shared/helper';
 
-const Post = ({ post }) => {
+interface Category {
+  id: string;
+  name: string;
+}
+
+export interface PostDetails {
+  author: { name: string; avatar: string };
+  title: string;
+  publishDate: string;
+  id: string;
+  summary?: string;
+  categories?: Category[];
+}
+
+const Post = ({ post }: { post: PostDetails }) => {
   return (
     <div>
       <li className="collection-item avatar">

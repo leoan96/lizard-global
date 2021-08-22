@@ -94,7 +94,6 @@ const App = () => {
     }
   };
 
-  console.log(filterBy);
   return (
     <div>
       <Navbar

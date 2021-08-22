@@ -2,7 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Checkbox from './Checkbox';
 
-const Navbar = ({ filterByList, handleOnFilterSubmit, handleOnReset }) => {
+interface NavProp {
+  filterByList: string[];
+  handleOnFilterSubmit: () => void;
+  handleOnReset: () => void;
+}
+
+const Navbar = ({
+  filterByList,
+  handleOnFilterSubmit,
+  handleOnReset,
+}: NavProp) => {
   return (
     <React.Fragment>
       <nav>

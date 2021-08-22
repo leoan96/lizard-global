@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Filter = ({ filter }) => {
+interface Filter {
+  filter: string;
+}
+
+const Filter = ({ filter }: Filter) => {
   return (
     <p>
       <label htmlFor={filter}>

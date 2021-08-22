@@ -3,7 +3,15 @@ import React from 'react';
 import Post from './Post';
 import Spinner from './Spinner';
 
-const Posts = ({ posts, loading }) => {
+import { PostDetails } from './Post';
+
+const Posts = ({
+  posts,
+  loading,
+}: {
+  posts: PostDetails[];
+  loading: boolean;
+}) => {
   if (loading) {
     return <Spinner />;
   }
